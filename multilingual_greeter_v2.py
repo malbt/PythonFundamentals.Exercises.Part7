@@ -3,10 +3,21 @@ from typing import Dict
 # Populate this dictionary with at least two languages.
 # Use integers for keys and strings for values.
 # Example: Key = 1. Value = 'English'.
+
+mode_prompt_dict = {
+    1: 'admin',
+    2: 'user',
+}
+
+admin_dic = {
+    1: 'add language',
+    2: 'update language',
+}
+
 lang_dict = {
     1: 'french',
     2: 'spanish',
-    3: 'Dutch'
+    3: 'Dutch',
 }
 
 # Populate this dictionary with appropriate prompts that correspond with the ids from lang_dict.
@@ -14,7 +25,7 @@ lang_dict = {
 name_prompt_dict = {
     1: 'Quel est votre nom?',
     2: 'Cual es su nombre?',
-    3: 'Wie ist dein Name'
+    3: 'Wie ist dein Name',
 }
 
 # Populate this dictionary with appropriate prompts that correspond with the ids from lang_dict.
@@ -22,8 +33,40 @@ name_prompt_dict = {
 greetings_dict = {
     1: 'Bonjour',
     2: 'Holla',
-    3: 'Hallo'
+    3: 'Hallo',
 }
+
+
+def print_user_mode_options(user_options: Dict[int, str]) -> None:
+    """
+    Given a dictionary, this functions iterates through the values and prints them out.
+
+    :param user_options: A dictionary
+    Keys are integers representing a user mode id
+    Values are strings representing the name of a user mode
+    :return: None
+    """
+    for key, value in user_options.items():
+        print(key, value)
+
+    return
+
+
+def mode_input() -> int:
+    """
+    This function prompts the user for a mode choice.
+
+    :return: An integer representing the user mode choice made by the user
+    """
+    user_mode_option = input('please choose a mode?\n')
+
+    return int(user_mode_option)
+
+
+def get_mode_input(mode_prompt_options: Dict[int, str], user_mode_option: int) -> str:
+
+    value = mode_prompt_options.get(user_mode_option)
+    return value
 
 
 def print_language_options(lang_options: Dict[int, str]) -> None:
@@ -111,13 +154,22 @@ def greet(name: str, greetings_options: Dict[int, str], lang_choice: int) -> Non
     return print(greet_user)
 
 
-if __name__ == '__main__':
-    print_language_options(lang_dict)
-    chosen_lang = language_input()
-    while language_choice_is_valid(lang_dict, chosen_lang) is False:
-        print("Invalid selection. Try again.")
+
+
+
+
+
+if mode_input()==2:
+#print_user_mode_options(mode_prompt_dic)
+    if __name__ == '__main__':
+        print_language_options(lang_dict)
+        chosen_lang = language_input()
+        while language_choice_is_valid(lang_dict, chosen_lang) is False:
+            print("Invalid selection. Try again.")
         chosen_lang = language_input()
 
-    selected_prompt = f"{get_name_input(name_prompt_dict, chosen_lang)} \n"
-    chosen_name = name_input(selected_prompt)
-    greet(chosen_name, greetings_dict, chosen_lang)
+        selected_prompt = f"{get_name_input(name_prompt_dict, chosen_lang)} \n"
+        chosen_name = name_input(selected_prompt)
+        greet(chosen_name, greetings_dict, chosen_lang)
+elif mode_input() ==1:
+    print("i am sorry i couldn't finish on time")
